@@ -9,9 +9,10 @@ import { useState, useEffect } from 'react'
  * @param {String} scrollInitialPosition The initial position of the scroller (default = 0)
  * @param {Number} playbackRateValue The frequency of the animation. Higher the value, it'll take more scroll distance to change frames
  * @param {String} initialWrapperWidth The initial width of the Wrapper. (It'll be changing dynamically) (default = "3000px")
+ * @param {boolean} reversed If true, scroll to the right will make the animation advance a frame. If false, scroll to the left will do that (default = false)
  */
 
-const HorizontalVideoScroller = ({shownVideo, videoWidth = "1000px", scrollInitialPosition = "0",  playbackRateValue = 15, initialWrapperWidth = "3000px"}) => {
+const HorizontalVideoScroller = ({shownVideo, videoWidth = "1000px", scrollInitialPosition = "0",  playbackRateValue = 15, initialWrapperWidth = "3000px", reversed = false}) => {
 
     useEffect(() => {
       // Initialize the Wrapper with a fixed width
@@ -42,7 +43,7 @@ const HorizontalVideoScroller = ({shownVideo, videoWidth = "1000px", scrollIniti
           scrollPosition.scrollIntoView();
         }
        
-        return newVal;
+        return reversed ? duration - newVal : newVal;
     }
 
     const loadHandler = (props) => {
